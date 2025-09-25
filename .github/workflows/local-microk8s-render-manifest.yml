@@ -127,25 +127,21 @@ jobs:
       #     images: |
       #       ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:${{ github.sha }}
       
-  push_manifest:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get current date
-        id: date
-        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"    
-      - uses: actions/checkout@v3
+      - name: Get current datetime
+        id: datetime
+        run: echo "::set-output name=datetime::$(date +'%Y-%m-%dT%H:%M:%S%z')"
+
+      - name: Checkout rendered manifest repository
+        uses: actions/checkout@v4
         with:
           repository: mornemaritz/rendered-manifest-local-microk8s
           ref: 'main'
           token:  ${{ secrets.ACTIONS_GITHUB_TOKEN }}
-      - name: setup git config
+
+      - name: setup git config for rendered manifest repository
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "noreply.githubactionsbot@no-mail.com"
       - run: git add ${{ steps.bake.outputs.manifestsBundle }}
-      - run: git commit -m"Rendered Manifest ${{ steps.date.outputs.date }}"
+      - run: git commit -m"Rendered Manifest ${{ steps.datetime.outputs.datetime }}"
       - run: git push origin main
-          
-
-      
-        
