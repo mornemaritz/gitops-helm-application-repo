@@ -46,8 +46,8 @@ env:
 #   CONTAINER_NAME: "your-container-name"
 #   RESOURCE_GROUP: "your-resource-group"
 #   CLUSTER_NAME: "your-cluster-name"
-  CHART_PATH: "your-chart-path"
-  CHART_OVERRIDE_PATH: "your-chart-override-path"
+  CHART_PATH: "charts/health-diary"
+  CHART_OVERRIDE_PATH: "configurations/local-microk8s/health-diary/values.yaml"
 
 jobs:
   # buildImage:
