@@ -135,7 +135,7 @@ jobs:
         run: echo "::set-output name=date::$(date +'%Y-%m-%d')"    
       - uses: actions/checkout@v3
         with:
-          repository: git@github.com:mornemaritz/rendered-manifest-local-microk8s.git
+          repository: mornemaritz/rendered-manifest-local-microk8s
           ref: 'main'
           token:  ${{ secrets.ACTIONS_GITHUB_TOKEN }}
       - name: setup git config
