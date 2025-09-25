@@ -142,7 +142,7 @@ jobs:
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "noreply.githubactionsbot@no-mail.com"
-      - run: cp ${{ steps.bake.outputs.manifestsBundle }} ./rendered-manifest-${{ steps.datetime.outputs.datetime }}.yaml
+      - run: cp ${{ steps.bake.outputs.manifestsBundle }} ./rendered-manifest.yaml
       - run: git add .
       - run: git commit -m"Rendered Manifest ${{ steps.datetime.outputs.datetime }}"
       - run: git push origin main
