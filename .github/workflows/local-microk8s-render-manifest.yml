@@ -86,7 +86,7 @@ jobs:
           fetch-tags: true
 
       - name: set latest tag
-        run: echo "{latest_tag}={$(git describe --tags --abbrev=0 HEAD~)}" >> "$GITHUB_ENV"
+        run: echo "latest_tag=$(git describe --tags --abbrev=0 HEAD~)" >> "$GITHUB_ENV"
 
       # # Logs in with your Azure credentials
       # - name: Azure login
