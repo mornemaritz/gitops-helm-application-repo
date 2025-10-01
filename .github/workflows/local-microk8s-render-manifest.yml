@@ -82,6 +82,11 @@ jobs:
     steps:
       # Checks out the repository this file is in
       - uses: actions/checkout@v4
+        with:
+          fetch-tags: true
+
+      - name: set latest tag
+        run: echo "{latest_tag}={$(git describe --tags --abbrev=0 HEAD~)}" >> "$GITHUB_ENV"
 
       # # Logs in with your Azure credentials
       # - name: Azure login
@@ -127,9 +132,9 @@ jobs:
       #     images: |
       #       ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:${{ github.sha }}
       
-      - name: Get current datetime
-        id: datetime
-        run: echo "datetime=$(date +'%Y-%m-%dT%H:%M:%S%z')" >> $GITHUB_OUTPUT
+      # - name: Get current datetime
+      #   id: datetime
+      #   run: echo "datetime=$(date +'%Y-%m-%dT%H:%M:%S%z')" >> $GITHUB_OUTPUT
 
       - name: Checkout rendered manifest repository
         uses: actions/checkout@v4
@@ -144,5 +149,5 @@ jobs:
           git config user.email "noreply.githubactionsbot@no-mail.com"
       - run: cp ${{ steps.bake.outputs.manifestsBundle }} ./health-diary/rendered-manifest.yaml
       - run: git add .
-      - run: git commit -m"Rendered Manifest ${{ steps.datetime.outputs.datetime }}"
+      - run: git commit -m"Rendered Manifest $latest_tag"
       - run: git push origin main
