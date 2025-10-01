@@ -83,6 +83,7 @@ jobs:
       # Checks out the repository this file is in
       - uses: actions/checkout@v5
         with:
+          fetch-depth: 0
           fetch-tags: true
 
       - name: set latest tag
