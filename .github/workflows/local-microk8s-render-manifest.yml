@@ -114,15 +114,14 @@ jobs:
 
       # Runs Helm to create manifest files
       - name: helm template
+        id: bake
         uses: azure/k8s-bake@v2
         with:
           renderEngine: "helm"
           helmChart: ${{ env.CHART_PATH }}
           overrideFiles: ${{ env.CHART_OVERRIDE_PATH }}
-          overrides: |
-            replicas:2
+          releaseName: "local-microk8s"
           helm-version: "latest"
-        id: bake
 
       # # Deploys application based on manifest files from previous step
       # - name: Deploy application
