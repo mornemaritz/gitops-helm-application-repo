@@ -112,16 +112,29 @@ jobs:
       #     admin: 'false'
       #     use-kubelogin: 'true'
 
-      # Runs Helm to create manifest files
       - name: helm template
-        id: bake
+        id: bake      
         uses: azure/k8s-bake@v3
         with:
-          renderEngine: "helm"
+          renderEngine: 'helm'
           helmChart: ${{ env.CHART_PATH }}
           overrideFiles: ${{ env.CHART_OVERRIDE_PATH }}
-          releaseName: "local-microk8s"
-          helm-version: "latest"
+          # overrides: |
+          #     replicas:2
+          helm-version: 'latest'
+          silent: 'false'
+
+
+      # # Runs Helm to create manifest files
+      # - name: helm template
+      #   id: bake
+      #   uses: azure/k8s-bake@v3
+      #   with:
+      #     renderEngine: "helm"
+      #     helmChart: ${{ env.CHART_PATH }}
+      #     overrideFiles: ${{ env.CHART_OVERRIDE_PATH }}
+      #     releaseName: "local-microk8s"
+      #     helm-version: "latest"
 
       # # Deploys application based on manifest files from previous step
       # - name: Deploy application
